@@ -6,9 +6,7 @@ CREATE TABLE IF NOT EXISTS "projects" (
                                           "git-online" VARCHAR,
                                           "created" TIMESTAMP,
                                           "modified" TIMESTAMP,
-                                          PRIMARY KEY("id"),
-    FOREIGN KEY ("id") REFERENCES "sessions"("project")
-    ON UPDATE NO ACTION ON DELETE NO ACTION
+                                          PRIMARY KEY("id")
     );
 
 CREATE TABLE IF NOT EXISTS "t1-heartbeats" (
@@ -26,5 +24,7 @@ CREATE TABLE IF NOT EXISTS "sessions" (
                                           "started" TIMESTAMP,
                                           "ended" TIMESTAMP,
                                           "project" TEXT,
-                                          PRIMARY KEY("id")
+                                          PRIMARY KEY("id"),
+    FOREIGN KEY ("project") REFERENCES "projects"("id")
+    ON UPDATE NO ACTION ON DELETE NO ACTION
     );
