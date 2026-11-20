@@ -1,7 +1,7 @@
 # How it works/Mechanism ![](https://img.shields.io/badge/Docs-FFF.svg)
 *Last updated 19.11.2026 @ 10:05PM CET*
 
-This document is meant to outline the basic definition on how the time tracking tool developed in this repository works at a high level.
+This document is meant to outline the basic definition on how the time tracking tool's logging works.
 
 > [!NOTE]
 > This file is still actively changing!
@@ -13,5 +13,5 @@ This document is meant to outline the basic definition on how the time tracking 
 | Signal  | What it looks at  | Source  | Trust  |
 |---|---|---|---|
 |   Filesystem|   Changes to files in a designated project (ignoring deps and `.gitignore`)|   OS File watcher|   Low, anything can trip this|
-|   Presence|   Keystroke count, KPS/burstiness, focused window|   Global Keyboard Events, window focus|   |
-|   Harness Events|   |   |   |
+|   Presence|   Keystroke count, KPS/burstiness, focused window|   Global Keyboard Events, window focus|   Medium|
+|   Harness Events|   Prompt Heuristics, Time that the AI spent working, input tokens, output tokens|   Logs, API Hooks|   Medium|
