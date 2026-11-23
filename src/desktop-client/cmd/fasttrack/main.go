@@ -50,6 +50,8 @@ func main() {
 			fmt.Printf("Project %q initialized in %s\n", name, pwd)
 
 		}
+	case "listen":
+		startListener()
 	case "sync":
 		fmt.Println("sync")
 	}

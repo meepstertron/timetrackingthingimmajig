@@ -15,3 +15,6 @@ This document is meant to outline the basic definition on how the time tracking 
 |   Filesystem|   Changes to files in a designated project (ignoring deps and `.gitignore`)|   OS File watcher|   Low, anything can trip this|
 |   Presence|   Keystroke count, KPS/burstiness, focused window|   Global Keyboard Events, window focus|   Medium|
 |   Harness Events|   Prompt Heuristics, Time that the AI spent working, input tokens, output tokens|   Logs, API Hooks|   Medium|
+
+
+## How does time tracking

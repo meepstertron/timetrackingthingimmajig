@@ -4,6 +4,7 @@ go 1.27.3
 
 require (
 	github.com/charmbracelet/bubbletea v1.3.10
+	github.com/fsnotify/fsnotify v1.9.0
 	github.com/glebarez/go-sqlite v1.23.0
 )
 

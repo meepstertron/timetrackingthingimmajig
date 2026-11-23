@@ -1,209 +1,55 @@
 @import "tailwindcss";
 
-/*
-    FastTrack theme
-    ===============
-    Single source of truth for the app's design tokens and the reusable
-    component classes built on top of them.
+@theme {
+  /* Surfaces */
+  --color-surface: #18181b;        /* app shell + sidebar */
+  --color-panel: #09090b;          /* main content panel */
+  --color-card: #27272a;           /* cards, hovered nav items */
 
-    The --* variables below keep the same names and values as the ones in
-    index.css, so both files stay in sync (index.css keeps working
-    unchanged). Everything here follows the OS light/dark preference
-    automatically.
+  /* Lines */
+  --color-edge: #3f3f46;           /* outlines, <hr>, borders */
 
-    Tailwind tokens exposed via @theme (usable as normal utilities):
-        colors : base, body, heading, line, code,
-                 accent, accent-soft, accent-line, accent-contrast,
-                 danger, danger-soft, danger-line, danger-contrast,
-                 success, success-soft, success-line
-        fonts  : font-sans, font-heading, font-mono
-        misc   : shadow-soft
-*/
+  /* Text */
+  --color-muted: #a1a1aa;          /* secondary text */
+  --color-on-accent: #052e16;      /* text on accent fills */
 
-/* ── Design tokens ─────────────────────────────────────────── */
+  /* Accent: goals & progress */
+  --color-accent: #34d399;         /* progress fill, highlights */
+  --color-accent-strong: #059669;  /* accent outlines */
 
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --accent-contrast: #fff;
-
-  --danger: #e5484d;
-  --danger-bg: rgba(229, 72, 77, 0.1);
-  --danger-border: rgba(229, 72, 77, 0.5);
-  --danger-contrast: #fff;
-
-  --success: #30a46c;
-  --success-bg: rgba(48, 164, 108, 0.1);
-  --success-border: rgba(48, 164, 108, 0.5);
-
-  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
-  rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Streak: fire */
+  --color-streak: #fb923c;         /* streak badge */
+  --color-streak-strong: #f97316;  /* streak outline */
+  --color-on-streak: #431407;      /* text on streak fills */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --accent-contrast: #16171d;
-
-    --danger: #ff6369;
-    --danger-bg: rgba(255, 99, 105, 0.15);
-    --danger-border: rgba(255, 99, 105, 0.5);
-    --danger-contrast: #16171d;
-
-    --success: #3dd68c;
-    --success-bg: rgba(61, 214, 140, 0.15);
-    --success-border: rgba(61, 214, 140, 0.5);
-
-    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
-    rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+progress {
+  accent-color: var(--color-accent);
 }
 
-/* ── Map tokens to Tailwind ──────────────────────────────────
-   `inline` makes each utility resolve the var at usage time,
-   so light/dark switching just works. */
-
-@theme inline {
-  --color-base: var(--bg);
-  --color-body: var(--text);
-  --color-heading: var(--text-h);
-  --color-line: var(--border);
-  --color-code: var(--code-bg);
-
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-bg);
-  --color-accent-line: var(--accent-border);
-  --color-accent-contrast: var(--accent-contrast);
-
-  --color-danger: var(--danger);
-  --color-danger-soft: var(--danger-bg);
-  --color-danger-line: var(--danger-border);
-  --color-danger-contrast: var(--danger-contrast);
-
-  --color-success: var(--success);
-  --color-success-soft: var(--success-bg);
-  --color-success-line: var(--success-border);
-
-  --font-sans: var(--sans);
-  --font-heading: var(--heading);
-  --font-mono: var(--mono);
-
-  --shadow-soft: var(--shadow);
+span {
+  font-family: 'Lato', sans-serif
 }
 
-/* ── Component classes ─────────────────────────────────────── */
-
-/*
-@layer components {
-    !* Page background (was bg-slate-800 — now on-theme) *!
-    .bg-default {
-        @apply bg-base;
-    }
-
-    !* Buttons *!
-    .btn {
-        @apply inline-flex cursor-pointer select-none items-center justify-center gap-2
-            rounded-lg border px-4 py-2 text-sm font-medium leading-none
-            transition-colors duration-150
-            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent
-            disabled:pointer-events-none disabled:opacity-50;
-    }
-    .btn-primary {
-        @apply border-accent bg-accent text-accent-contrast hover:opacity-90;
-    }
-    .btn-secondary {
-        @apply border-line bg-code text-heading hover:border-accent-line hover:bg-accent-soft;
-    }
-    .btn-ghost {
-        @apply border-transparent bg-transparent text-body hover:bg-accent-soft hover:text-heading;
-    }
-    .btn-danger {
-        @apply border-danger bg-danger text-danger-contrast hover:opacity-90;
-    }
-    .btn-sm {
-        @apply rounded-md px-3 py-1.5 text-xs;
-    }
-
-    !* Surfaces *!
-    .card {
-        @apply rounded-xl border border-line bg-base p-5;
-    }
-
-    !* Forms *!
-    .label {
-        @apply mb-1.5 block text-xs font-medium tracking-wide text-body;
-    }
-    .input {
-        @apply w-full rounded-lg border border-line bg-code px-3 py-2 text-sm text-heading
-            transition-colors placeholder:text-body/70
-            focus:border-accent-line focus:outline-2 focus:outline-offset-1 focus:outline-accent
-            disabled:opacity-60;
-    }
-
-    !* Badges / status pills *!
-    .badge {
-        @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5
-            text-xs font-medium leading-none;
-    }
-    .badge-accent {
-        @apply border-accent-line bg-accent-soft text-accent;
-    }
-    .badge-success {
-        @apply border-success-line bg-success-soft text-success;
-    }
-    .badge-danger {
-        @apply border-danger-line bg-danger-soft text-danger;
-    }
-    .badge-muted {
-        @apply border-line bg-code text-body;
-    }
-
-    !* Dashboard stats *!
-    .stat-value {
-        @apply font-heading text-3xl font-medium tracking-tight text-heading tabular-nums;
-    }
-    .stat-label {
-        @apply text-xs font-medium uppercase tracking-wider text-body;
-    }
-
-    !* List rows (projects, sessions, ...) *!
-    .row-item {
-        @apply flex items-center justify-between gap-4 rounded-lg border border-line px-4 py-3
-            transition-colors hover:border-accent-line hover:bg-accent-soft;
-    }
-
-    !* Inline code / keycaps *!
-    .code-chip {
-        @apply rounded-md bg-code px-1.5 py-0.5 font-mono text-sm text-heading;
-    }
-
-    !* Links *!
-    .link {
-        @apply text-accent underline-offset-4 hover:underline;
-    }
-
-    !* Horizontal rule *!
-    .divider {
-        @apply h-px w-full border-0 bg-line;
-    }
+h1, h2, h3, h4 {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 600
 }
-*/
+
+h1 {
+  @apply text-4xl
+}
+
+h2 { @apply text-4xl }
+h3 { @apply text-2xl }
+h4 { @apply text-xl }
+
+.bg-hatched {
+  background: repeating-linear-gradient(
+          45deg,
+          oklch(70.7% 0.165 254.624),
+          oklch(70.7% 0.165 254.624) 2px,
+          #00000000 2px,
+          #00000000 10px
+  );
+}
